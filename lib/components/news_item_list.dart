@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsapps/model/news_model.dart';
+import 'package:newsapps/ui/news_details.dart';
 
 class NewsItemList extends StatelessWidget {
   final NewsModel newsModel;
@@ -7,37 +8,46 @@ class NewsItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(8),
-      margin: EdgeInsets.all(12),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+    return InkWell(
+      onTap:() {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => NewsDetails(newsModel: newsModel,),));
+      },
+      child: Container(
+        padding: EdgeInsets.all(8),
+        margin: EdgeInsets.all(12),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
 
-          Image.network(newsModel.urlToImage.toString(),height: 250,width: double.infinity,),
-          Row(
-            children: [
-              Container(
-                child: Text(newsModel.source!.name.toString(),style: TextStyle(color: Colors.white),),
-                padding: EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: Colors.red,borderRadius: BorderRadius.circular(30),
+            Image.network(
+              newsModel.urlToImage.toString(),
+              height: 250,
+              width: double.infinity,
+            ),
+            Row(
+              children: [
+                Container(
+                  child: Text(newsModel.source!.name.toString(),style: TextStyle(color: Colors.white),),
+                  padding: EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: Colors.red,borderRadius: BorderRadius.circular(30),
+                  ),
                 ),
-              ),
 
-              SizedBox(width: 8,),
-              Text(newsModel.publishedAt.toString(),),
-              
-            ],
-          ),
-          SizedBox(height: 4,),
-          Text('Written By: '+newsModel.author.toString()),
-          SizedBox(height: 4,),
-          Text(newsModel.title.toString()),
-          
+                SizedBox(width: 8,),
+                Text(newsModel.publishedAt.toString(),),
 
-        ],
+              ],
+            ),
+            SizedBox(height: 4,),
+            Text('Written By: '+newsModel.author.toString()),
+            SizedBox(height: 4,),
+            Text(newsModel.title.toString()),
+
+
+          ],
+        ),
       ),
     );
   }
